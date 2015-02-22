@@ -1,0 +1,19 @@
+<template id='sample-element-template'>
+  <button>Sample Element</button>
+</template>
+<script>
+  var SampleElementPrototype = Object.create(HTMLElement.prototype);
+ 
+  SampleElementPrototype.createdCallback = function () {
+    var shadowRoot = this.createShadowRoot();
+    var template = document.querySelector('#sample-element-template');
+    var clone = document.importNode(template.content, true);
+    shadowRoot.appendChild(clone);
+  };
+ 
+  document.registerElement('sample-element', {
+    prototype: SampleElementPrototype
+  });
+</script>
+
+<sample-element />
