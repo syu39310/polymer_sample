@@ -1,0 +1,34 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="greeting-tag">
+  <!-- 一番外側のテンプレートが要素のshadow DOMを定義します -->
+  <template>
+    <ul>
+      <template repeat="{{s in salutations}}">
+        <li>{{s.what}}: <input type="text" value="{{s.who}}"><button on-click={{selectStory}}>{{s.who}}削除</button>
+      </template>
+    </ul>
+  </template>
+  <script>
+    Polymer('greeting-tag', {
+      ready: function() {
+        // 要素のデータモデルを初期化します
+        // (挨拶の言葉の配列)
+        this.salutations = [
+          {what: 'Hello', who: 'World'},
+          {what: 'GoodBye', who: 'DOM APIs'},
+          {what: 'Hello', who: 'Declarative'},
+          {what: 'GoodBye', who: 'Imperative'}
+        ];
+      },
+      selectStory: function(e, detail, sender) {
+        var story = e.target.templateInstance.model.s;
+        console.log("Clicked " + story.headline);
+        story.who = '';
+      }
+    });
+  </script>
+</polymer-element>
+
+<greeting-tag></greeting-tag>
+<div id="view"></div>
